@@ -31,18 +31,36 @@ echo ""
 # 选择下载方式
 echo "请选择模型下载方式："
 echo ""
-echo "1. 自动下载（需要稳定的网络连接）"
-echo "2. 手动下载（提供下载链接和说明）"
-echo "3. 使用已下载的模型（指定本地路径）"
+echo "1. 使用 Python 下载（稳定但较慢）"
+echo "2. 使用 aria2 高速下载（需要先安装 aria2）"
+echo "3. 手动下载（提供下载链接和说明）"
+echo "4. 使用已下载的模型（指定本地路径）"
 echo ""
-read -p "请选择 [1-3]: " choice
+read -p "请选择 [1-4]: " choice
 
 case $choice in
     1)
-        print_info "开始自动下载模型..."
-        ./download_models.sh
+        print_info "使用 Python 下载模型..."
+        ./download_models_simple.sh
         ;;
     2)
+        print_info "使用 aria2 高速下载..."
+        if command -v aria2c >/dev/null 2>&1; then
+            ./download_with_aria2.sh
+        else
+            print_error "未安装 aria2"
+            echo ""
+            echo "请先安装 aria2："
+            echo "  Ubuntu/Debian: sudo apt-get install aria2"
+            echo "  CentOS/RHEL: sudo yum install aria2"
+            echo ""
+            read -p "是否改用 Python 下载？[Y/n] " use_python
+            if [[ ! $use_python =~ ^[Nn]$ ]]; then
+                ./download_models_simple.sh
+            fi
+        fi
+        ;;
+    3)
         echo ""
         echo "================================================"
         echo "          手动下载说明"
@@ -79,7 +97,7 @@ case $choice in
         echo ""
         read -p "按回车键继续..."
         ;;
-    3)
+    4)
         echo ""
         read -p "请输入模型文件所在的目录路径: " model_path
         
