@@ -45,6 +45,7 @@ pip install -r requirements.txt
 
 # 下载预训练模型
 echo "下载预训练模型..."
+mkdir -p "$MODEL_DIR"
 cd "$MODEL_DIR"
 
 # 下载基础模型

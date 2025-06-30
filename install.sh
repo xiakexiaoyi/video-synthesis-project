@@ -149,18 +149,23 @@ case $install_option in
     1)
         echo -e "\n开始完整安装..."
         
+        # 先下载模型
+        echo -e "\n[1/4] 下载AI模型..."
+        chmod +x install_models.sh
+        ./install_models.sh
+        
         # 安装GPT-SoVITS
-        echo -e "\n[1/3] 安装GPT-SoVITS..."
+        echo -e "\n[2/4] 安装GPT-SoVITS..."
         chmod +x services/gpt_sovits_setup.sh
         ./services/gpt_sovits_setup.sh
         
         # 安装MuseTalk
-        echo -e "\n[2/3] 安装MuseTalk..."
+        echo -e "\n[3/4] 安装MuseTalk..."
         chmod +x services/musetalk_setup.sh
         ./services/musetalk_setup.sh
         
         # 安装主程序
-        echo -e "\n[3/3] 安装主程序..."
+        echo -e "\n[4/4] 安装主程序..."
         cd server
         pip3 install -r requirements.txt
         cd ../client
@@ -212,4 +217,9 @@ echo ""
 echo "提示："
 echo "- 首次运行可能需要下载模型文件，请耐心等待"
 echo "- 查看日志: tail -f logs/*.log"
-echo "- 默认端口: GPT-SoVITS(9880), MuseTalk(9881), 主服务(8000)"
+echo "- 默认端口: GPT-SoVITS(9880), MuseTalk(9881), 主服务(6006)"
+
+echo ""
+echo "如果模型下载失败："
+echo "1. 运行 ./install_models.sh 选择其他下载方式"
+echo "2. 或手动下载模型文件到 models/ 目录"
