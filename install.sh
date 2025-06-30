@@ -167,8 +167,8 @@ case $install_option in
         
         # 下载 MuseTalk 模型
         print_info "下载 MuseTalk 模型..."
-        chmod +x download_musetalk_models.sh
-        ./download_musetalk_models.sh
+        chmod +x download_musetalk_models_v2.sh
+        ./download_musetalk_models_v2.sh
         
         # 安装GPT-SoVITS
         echo -e "\n[2/4] 安装GPT-SoVITS..."

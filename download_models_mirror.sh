@@ -106,11 +106,11 @@ print_info "开始下载 MuseTalk 模型..."
 print_info "MuseTalk 需要多个模型文件，使用专用下载脚本..."
 
 # 运行 MuseTalk 专用下载脚本
-if [ -f "./download_musetalk_models.sh" ]; then
-    ./download_musetalk_models.sh
+if [ -f "./download_musetalk_models_v2.sh" ]; then
+    ./download_musetalk_models_v2.sh
 else
     print_error "找不到 MuseTalk 下载脚本"
-    print_info "请运行: ./download_musetalk_models.sh"
+    print_info "请运行: ./download_musetalk_models_v2.sh"
 fi
 
 # 检查下载结果
