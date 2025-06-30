@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  gpt-sovits:
+    image: gpt-sovits:latest
+    ports:
+      - "9880:9880"
+    volumes:
+      - ./models/gpt-sovits:/workspace/models
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  musetalk:
+    image: musetalk:latest
+    ports:
+      - "9881:9881"
+    volumes:
+      - ./models/musetalk:/workspace/models
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  video-synthesis-server:
+    build: ./server
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./temp:/app/temp
+      - ./output:/app/output
+    environment:
+      - GPT_SOVITS_API_URL=http://gpt-sovits:9880
+      - MUSETALK_API_URL=http://musetalk:9881
+    depends_on:
+      - gpt-sovits
+      - musetalk
