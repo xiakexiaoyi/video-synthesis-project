@@ -41,10 +41,12 @@ echo ""
 # 检查下载工具
 check_download_tools() {
     if command -v wget >/dev/null 2>&1; then
-        DOWNLOAD_CMD="wget -c"
+        DOWNLOAD_CMD="wget"
+        DOWNLOAD_ARGS="-c -O"
         return 0
     elif command -v curl >/dev/null 2>&1; then
-        DOWNLOAD_CMD="curl -L -C - -o"
+        DOWNLOAD_CMD="curl"
+        DOWNLOAD_ARGS="-L -C - -o"
         return 0
     else
         print_error "未找到 wget 或 curl，请先安装下载工具"
@@ -68,7 +70,7 @@ download_file() {
     print_info "保存到: $output_path"
     
     # 尝试直接下载
-    if $DOWNLOAD_CMD "$output_path" "$url"; then
+    if $DOWNLOAD_CMD $DOWNLOAD_ARGS "$output_path" "$url"; then
         print_info "✓ $description 下载成功"
         return 0
     else
