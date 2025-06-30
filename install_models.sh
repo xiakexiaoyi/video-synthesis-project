@@ -31,19 +31,24 @@ echo ""
 # 选择下载方式
 echo "请选择模型下载方式："
 echo ""
-echo "1. 使用 Python 下载（稳定但较慢）"
-echo "2. 使用 aria2 高速下载（需要先安装 aria2）"
-echo "3. 手动下载（提供下载链接和说明）"
-echo "4. 使用已下载的模型（指定本地路径）"
+echo "1. 使用 HF-Mirror 镜像站下载（推荐，速度快）"
+echo "2. 使用 Python 直接下载（稳定但较慢）"
+echo "3. 使用 aria2 高速下载（需要先安装 aria2）"
+echo "4. 手动下载（提供下载链接和说明）"
+echo "5. 使用已下载的模型（指定本地路径）"
 echo ""
-read -p "请选择 [1-4]: " choice
+read -p "请选择 [1-5]: " choice
 
 case $choice in
     1)
+        print_info "使用 HF-Mirror 镜像站下载..."
+        ./download_models_mirror.sh
+        ;;
+    2)
         print_info "使用 Python 下载模型..."
         ./download_models_simple.sh
         ;;
-    2)
+    3)
         print_info "使用 aria2 高速下载..."
         if command -v aria2c >/dev/null 2>&1; then
             ./download_with_aria2.sh
@@ -54,13 +59,13 @@ case $choice in
             echo "  Ubuntu/Debian: sudo apt-get install aria2"
             echo "  CentOS/RHEL: sudo yum install aria2"
             echo ""
-            read -p "是否改用 Python 下载？[Y/n] " use_python
-            if [[ ! $use_python =~ ^[Nn]$ ]]; then
-                ./download_models_simple.sh
+            read -p "是否改用镜像站下载？[Y/n] " use_mirror
+            if [[ ! $use_mirror =~ ^[Nn]$ ]]; then
+                ./download_models_mirror.sh
             fi
         fi
         ;;
-    3)
+    4)
         echo ""
         echo "================================================"
         echo "          手动下载说明"
@@ -97,7 +102,7 @@ case $choice in
         echo ""
         read -p "按回车键继续..."
         ;;
-    4)
+    5)
         echo ""
         read -p "请输入模型文件所在的目录路径: " model_path
         

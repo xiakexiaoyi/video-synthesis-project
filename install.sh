@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# 颜色定义
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+print_info() {
+    echo -e "${GREEN}[INFO]${NC} $1"
+}
+
 echo "======================================"
 echo "视频合成项目一键安装脚本"
 echo "======================================"
@@ -151,8 +159,9 @@ case $install_option in
         
         # 先下载模型
         echo -e "\n[1/4] 下载AI模型..."
-        chmod +x install_models.sh
-        ./install_models.sh
+        chmod +x download_models_mirror.sh
+        print_info "使用 HF-Mirror 镜像站下载模型..."
+        ./download_models_mirror.sh
         
         # 安装GPT-SoVITS
         echo -e "\n[2/4] 安装GPT-SoVITS..."
@@ -222,4 +231,5 @@ echo "- 默认端口: GPT-SoVITS(9880), MuseTalk(9881), 主服务(6006)"
 echo ""
 echo "如果模型下载失败："
 echo "1. 运行 ./install_models.sh 选择其他下载方式"
-echo "2. 或手动下载模型文件到 models/ 目录"
+echo "2. 使用 aria2 加速: ./download_aria2_mirror.sh"
+echo "3. 或手动下载模型文件到 models/ 目录"
