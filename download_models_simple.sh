@@ -131,20 +131,8 @@ download_with_python \
 cd ../..
 
 # 下载 MuseTalk 模型
-print_info "开始下载 MuseTalk 模型..."
-cd models/musetalk
-
-download_with_python \
-    "https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/sd-vae-ft-mse.ckpt" \
-    "sd-vae-ft-mse.ckpt" \
-    "MuseTalk VAE 模型"
-
-download_with_python \
-    "https://huggingface.co/openai/whisper-tiny/resolve/main/pytorch_model.bin" \
-    "whisper_tiny.pt" \
-    "MuseTalk Whisper 模型"
-
-cd ../..
+print_info "MuseTalk 模型较复杂，请使用专用脚本下载："
+print_info "运行: ./download_musetalk_models.sh"
 
 # 检查结果
 echo ""

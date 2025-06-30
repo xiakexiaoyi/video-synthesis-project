@@ -100,22 +100,18 @@ download_from_mirror \
 
 cd ../..
 
-# 下载 MuseTalk 模型
+# 下载 MuseTalk 模型 - 使用专用脚本
 echo ""
 print_info "开始下载 MuseTalk 模型..."
-cd models/musetalk
+print_info "MuseTalk 需要多个模型文件，使用专用下载脚本..."
 
-download_from_mirror \
-    "https://huggingface.co/stabilityai/sd-vae-ft-mse/resolve/main/sd-vae-ft-mse.ckpt" \
-    "sd-vae-ft-mse.ckpt" \
-    "MuseTalk VAE 模型 (约 335MB)"
-
-download_from_mirror \
-    "https://huggingface.co/openai/whisper-tiny/resolve/main/pytorch_model.bin" \
-    "whisper_tiny.pt" \
-    "MuseTalk Whisper 模型 (约 39MB)"
-
-cd ../..
+# 运行 MuseTalk 专用下载脚本
+if [ -f "./download_musetalk_models.sh" ]; then
+    ./download_musetalk_models.sh
+else
+    print_error "找不到 MuseTalk 下载脚本"
+    print_info "请运行: ./download_musetalk_models.sh"
+fi
 
 # 检查下载结果
 echo ""

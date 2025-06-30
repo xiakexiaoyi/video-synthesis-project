@@ -159,9 +159,16 @@ case $install_option in
         
         # 先下载模型
         echo -e "\n[1/4] 下载AI模型..."
+        
+        # 下载 GPT-SoVITS 模型
+        print_info "下载 GPT-SoVITS 模型..."
         chmod +x download_models_mirror.sh
-        print_info "使用 HF-Mirror 镜像站下载模型..."
         ./download_models_mirror.sh
+        
+        # 下载 MuseTalk 模型
+        print_info "下载 MuseTalk 模型..."
+        chmod +x download_musetalk_models.sh
+        ./download_musetalk_models.sh
         
         # 安装GPT-SoVITS
         echo -e "\n[2/4] 安装GPT-SoVITS..."
