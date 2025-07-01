@@ -148,7 +148,7 @@ if [ -f "logs/main.pid" ]; then
 fi
 
 # 启动服务
-print_info "启动 AI 服务..."
+print_info "启动 AI 服务... "
 
 # 启动真实服务
 if [ -f "services/start_all.sh" ]; then
