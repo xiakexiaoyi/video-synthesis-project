@@ -22,6 +22,16 @@ if not os.path.exists(gpt_sovits_dir):
 # 切换到GPT-SoVITS目录
 os.chdir(gpt_sovits_dir)
 
+# 检查BERT模型是否存在
+bert_model_path = os.path.join(gpt_sovits_dir, 'GPT_SoVITS', 'pretrained_models', 'chinese-roberta-wwm-ext-large')
+if not os.path.exists(bert_model_path):
+    print("BERT模型不存在，正在下载...")
+    download_script = os.path.join(current_dir, 'download_bert_model.sh')
+    if os.path.exists(download_script):
+        subprocess.run(['bash', download_script], check=True)
+    else:
+        print("警告: 找不到下载脚本，BERT模型可能无法使用")
+
 # 检查并安装必要的依赖
 required_modules = ['jieba', 'gradio', 'librosa', 'soundfile', 'fastapi', 'uvicorn']
 missing_modules = []
