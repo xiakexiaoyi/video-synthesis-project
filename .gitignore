@@ -1,0 +1,4 @@
+services/gpt-sovits/GPT-SoVITS/
+services/gpt-sovits/models/gpt-sovits/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt
+services/gpt-sovits/models/gpt-sovits/s2D2333k.pth
+services/gpt-sovits/models/gpt-sovits/s2G2333k.pth

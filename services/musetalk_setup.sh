@@ -78,7 +78,7 @@ for model_url in "${models[@]}"; do
 done
 
 # 创建API服务脚本
-cat > "$SERVICE_DIR/start_api.py" << 'EOF'
+cat > "${SERVICE_DIR}/start_api.py" << 'EOF'
 import os
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), 'MuseTalk'))
@@ -203,7 +203,7 @@ if __name__ == "__main__":
 EOF
 
 # 创建简化的MuseTalk API服务（使用命令行接口）
-cat > "$SERVICE_DIR/start_api_simple.py" << 'EOF'
+cat > "${SERVICE_DIR}/start_api_simple.py" << 'EOF'
 import os
 import sys
 import tempfile
@@ -282,7 +282,7 @@ if __name__ == "__main__":
 EOF
 
 # 创建服务启动脚本
-cat > "$SERVICE_DIR/start_service.sh" << 'EOF'
+cat > "${SERVICE_DIR}/start_service.sh" << 'EOF'
 #!/bin/bash
 cd "$(dirname "$0")"
 source MuseTalk/venv/bin/activate
@@ -290,7 +290,7 @@ export PYTHONPATH="$PWD/MuseTalk:$PYTHONPATH"
 python start_api_simple.py
 EOF
 
-chmod +x "$SERVICE_DIR/start_service.sh"
+chmod +x "${SERVICE_DIR}/start_service.sh"
 
 echo "MuseTalk 安装完成！"
-echo "启动命令: $SERVICE_DIR/start_service.sh"
+echo "启动命令: ${SERVICE_DIR}/start_service.sh"
